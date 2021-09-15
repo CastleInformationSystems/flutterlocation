@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
 
 const val kDefaultChannelName: String = "Location background service"
 const val kDefaultNotificationTitle: String = "Location background service running"
@@ -228,7 +229,16 @@ class FlutterLocationService : Service(), PluginRegistry.RequestPermissionsResul
             Log.d(TAG, "Start service in foreground mode.")
 
             val notification = backgroundNotification!!.build()
-            startForeground(ONGOING_NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_LOCATION)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                startForeground(
+                    ONGOING_NOTIFICATION_ID,
+                    notification,
+                    FOREGROUND_SERVICE_TYPE_LOCATION
+                )
+            }
+            else {
+                startForeground(ONGOING_NOTIFICATION_ID, notification)
+            }
 
             isForeground = true
         }
