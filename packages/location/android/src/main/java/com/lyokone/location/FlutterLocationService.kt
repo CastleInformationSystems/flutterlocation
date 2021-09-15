@@ -228,7 +228,7 @@ class FlutterLocationService : Service(), PluginRegistry.RequestPermissionsResul
             Log.d(TAG, "Start service in foreground mode.")
 
             val notification = backgroundNotification!!.build()
-            startForeground(ONGOING_NOTIFICATION_ID, notification)
+            startForeground(ONGOING_NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_LOCATION)
 
             isForeground = true
         }

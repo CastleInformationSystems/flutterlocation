@@ -52,7 +52,6 @@ public class LocationPlugin implements FlutterPlugin, ActivityAware {
         activityBinding = binding;
         Intent intent = new Intent(binding.getActivity(), FlutterLocationService.class);
         activityBinding.getActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        ContextCompat.startForegroundService(binding.getActivity(), intent);
     }
 
     private void detachActivity() {
